@@ -20,14 +20,14 @@ library(knitr)
 library(flextable)
 ```
 
-### **Projection Defined** 
+### **Projection Defined**
 
 ```{r}
 eqdc <- '+proj=eqdc +lat_0=40 +lon_0=-96 +lat_1=20 +lat_2=60 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs'
 
 ```
 
-###  Loading Data
+### Loading Data
 
 ```{r}
 # USA State Boundaries
@@ -265,3 +265,11 @@ ggplot() +
   theme_minimal()
 
 ```
+
+I found that **9,813 cities** in the U.S. are within **100 miles** of a border. These cities have about **216 million people**, which is **53.7%** of the total population in the dataset. This supports what the ACLU said — that more than half of the U.S. population lives in this “border zone.”
+
+This matters because in this zone, the government has more power to stop and search people without a warrant. So, many people might be affected, not just in small border towns, but also in big cities like San Diego, El Paso, and Miami.
+
+The maps showed that border zone cities are found all over near Mexico, Canada, and both coasts. We also found the **most populated city in each state** inside the zone, showing how wide this zone reaches across the country.
+
+In short, this lab helped show how maps and data can help us understand how laws affect people in real places.
