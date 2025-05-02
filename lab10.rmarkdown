@@ -6,7 +6,11 @@ format: html
 theme: cosmo
 ---
 
+
+
 # Question 1
+
+
 
 ```{r}
 library(tidyverse)
@@ -20,14 +24,22 @@ library(knitr)
 library(flextable)
 ```
 
+
+
 ### **Projection Defined**
+
+
 
 ```{r}
 eqdc <- '+proj=eqdc +lat_0=40 +lon_0=-96 +lat_1=20 +lat_2=60 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs'
 
 ```
 
+
+
 ### Loading Data
+
+
 
 ```{r}
 # USA State Boundaries
@@ -45,9 +57,13 @@ cities <- st_as_sf(cities_df, coords = c("lng", "lat"), crs = 4326) |> st_transf
 
 ```
 
+
+
 # Question 2: Calculating Distances
 
 ### Distance to **State Borders**
+
+
 
 ```{r}
 # Convert state boundaries to MULTILINESTRING (preserve individual borders)
@@ -67,7 +83,11 @@ cities |>
 
 ```
 
+
+
 ### Distance to **National Border**
+
+
 
 ```{r}
 # Create national outline from states
@@ -87,7 +107,11 @@ cities |>
 
 ```
 
+
+
 ### Distance to **Mexico**
+
+
 
 ```{r}
 mexico <- countries |> 
@@ -106,7 +130,11 @@ cities |>
 
 ```
 
+
+
 ### Distance to **Canada**
+
+
 
 ```{r}
 canada <- countries |> 
@@ -125,9 +153,13 @@ cities |>
 
 ```
 
+
+
 # Question 3
 
 ### Map the 3 countries, CONUS states, and the 10 largest USA cities
+
+
 
 ```{r}
 # Top 10 cities by population
@@ -145,7 +177,11 @@ ggplot() +
 
 ```
 
+
+
 ### Color cities by **distance to national border**, label 5 farthest
+
+
 
 ```{r}
 farthest_state <- cities |> arrange(desc(dist_to_state)) |> slice(1:5)
@@ -158,9 +194,13 @@ ggplot() +
   theme_minimal()
 
 ```
+
+
 
 ### Color cities by **distance to state border**, label 5 farthest
 
+
+
 ```{r}
 farthest_state <- cities |> arrange(desc(dist_to_state)) |> slice(1:5)
 
@@ -173,7 +213,11 @@ ggplot() +
 
 ```
 
+
+
 ### Highlight cities \~equal distance to Canada and Mexico (±100 km diff)
+
+
 
 ```{r}
 # Create difference variable
@@ -194,9 +238,13 @@ ggplot() +
 
 ```
 
+
+
 # Question 4
 
 ### Identify Cities in the 100-Mile (160 km) Border Zone
+
+
 
 ```{r}
 # Filter cities within 160 km of the national border
@@ -206,14 +254,22 @@ border_zone_cities <- cities |> filter(in_border_zone)
 
 ```
 
+
+
 ### How many cities are in the zone?
+
+
 
 ```{r}
 nrow(border_zone_cities)
 
 ```
 
+
+
 ### What percentage of the population lives in that zone?
+
+
 
 ```{r}
 total_population <- sum(cities$population, na.rm = TRUE)
@@ -222,7 +278,11 @@ percent_in_zone <- (border_population / total_population) * 100
 
 ```
 
+
+
 ### Show results in a table
+
+
 
 ```{r}
 tibble(
@@ -234,7 +294,11 @@ tibble(
 
 ```
 
+
+
 ### Map cities in the zone
+
+
 
 ```{r}
 top_10_danger <- border_zone_cities |> arrange(desc(population)) |> slice(1:10)
@@ -248,7 +312,11 @@ ggplot() +
 
 ```
 
+
+
 ### Most populous city in each state within the danger zone
+
+
 
 ```{r}
 library(dplyr)
@@ -266,6 +334,8 @@ ggplot() +
 
 ```
 
+
+
 I found that 9,813 cities in the U.S. are within 100 miles of a border. These cities have about 216 million people, which is 53.7% of the total population in the dataset. This supports what the ACLU said — that more than half of the U.S. population lives in this “border zone.”
 
 This matters because in this zone, the government has more power to stop and search people without a warrant. So, many people might be affected, not just in small border towns, but also in big cities like San Diego, El Paso, and Miami.
@@ -273,3 +343,4 @@ This matters because in this zone, the government has more power to stop and sea
 The maps showed that border zone cities are found all over near Mexico, Canada, and both coasts. We also found the most populated city in each state inside the zone, showing how wide this zone reaches across the country.
 
 In short, this lab helped show how maps and data can help us understand how laws affect people in real places.
+
